@@ -6,7 +6,7 @@ const schema = yup.object().shape({
     firstName:yup.string().required('First Name is required.'),
     lastName:yup.string().required("Last Name is required."),
     email:yup.string().email("Enter a valid email address.").required("Can't leave Email field blank"),
-    password:yup.string().required("a password is required."),//.min(4).matches(/(^(?=.*[!@#$%^&*()-_=+<>/])) /, "Your Password is required to have special characters with it (at least one)"),
+    password:yup.string().required("a password is required.").min(4),//.matches(/(^(?=.*[!@#$%^&*()-_=+<>/])) /, "Your Password is required to have special characters with it (at least one)"),
     vacation:yup.string(),//.required("Choose your dream vactaion"),
     terms: yup.boolean().oneOf([true], "Agree to the terms and conditions that have yet to be displayed... Still working on it.")
 });
@@ -68,7 +68,7 @@ function Form(){
         .catch(err => {
             setFormErr({
                 ...formErr,
-               [event.target.name]:err.formErr
+               [event.target.name]:err.errors[0]
             });
         });
     }
@@ -140,7 +140,7 @@ return(
             <input id="terms" name="terms" type="checkbox" 
             checked={formInput.terms} onChange={formChange}/> 
             Terms and Conditions
-            {formErr.terms.checked === true ? <p>{formErr.terms}</p> : null} 
+            {formErr.terms.length > 0 ? <p>{formErr.terms}</p> : null} 
         </label>
 
         <br/>
