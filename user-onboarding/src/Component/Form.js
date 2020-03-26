@@ -6,8 +6,8 @@ const schema = yup.object().shape({
     firstName:yup.string().required('First Name is required.'),
     lastName:yup.string().required("Last Name is required."),
     email:yup.string().email("Enter a valid email address.").required("Can't leave Email field blank"),
-    password:yup.string().required("a password is required.").min(4),//.matches(/(^(?=.*[!@#$%^&*()-_=+<>/])) /, "Your Password is required to have special characters with it (at least one)"),
-    vacation:yup.string(),//.required("Choose your dream vactaion"),
+    password:yup.string().required("a password is required.").min(4).matches(/(^(?=.*[!@#$%^&*]))/, "Your Password is required to have special characters with it (at least one)"),
+    vacation:yup.string().required("Choose your dream vactaion"),
     terms: yup.boolean().oneOf([true], "Agree to the terms and conditions that have yet to be displayed... Still working on it.")
 });
 
@@ -36,8 +36,8 @@ function Form(){
     const[account, setAccount] = useState([]);
 
     useEffect(() => {
-        schema.isValid(schema).then(good =>{
-            setSubmitDisabled(!good);
+        schema.isValid(formInput).then(valid =>{
+            setSubmitDisabled(!valid);
         })
     }, [formInput]);
 
@@ -123,7 +123,7 @@ return(
         <label htmlFor="vacation">Dream Vacation: 
             <select id='vacation' name="vacation" 
             value={formInput.vacation} onChange={formChange}>
-                <option value="Empty"> </option>
+                <option value="">--Select an Spot--</option>
                 <option value="france">France</option>
                 <option value="italy">Italy</option>
                 <option value="disneyWorld">Disney World</option>
@@ -140,14 +140,12 @@ return(
             <input id="terms" name="terms" type="checkbox" 
             checked={formInput.terms} onChange={formChange}/> 
             Terms and Conditions
-            {formErr.terms.length > 0 ? <p>{formErr.terms}</p> : null} 
+            {/* {formErr.terms.length > 0 ? <p>{formErr.terms}</p> : null}  */}
         </label>
 
         <br/>
-
-        <label htmlFor="submit">
-            <input id="submit" disabled={submitDisabled} name="submit" type="submit" />
-        </label>
+            <button disabled={submitDisabled}>Submit</button>
+        <pre>{JSON.stringify(account, null, 2)}</pre>
     </form>
 )
 }
