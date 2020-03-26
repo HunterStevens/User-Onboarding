@@ -105,7 +105,7 @@ return(
         <br/>
 
         <label htmlFor="email">Email: 
-            <input id="email" name="email" type="text" 
+            <input id="email" name="email" type="email" 
             value={formInput.email} onChange={formChange} />
             {formErr.email.length > 0 ? <p>{formErr.email}</p> : null}
         </label>
@@ -113,7 +113,7 @@ return(
         <br/>
 
         <label htmlFor="password">Password: 
-            <input id="password" name="password" type="text" 
+            <input id="password" name="password" type="password" 
             value={formInput.password} onChange={formChange}/>
             {formErr.password.length > 0 ? <p>{formErr.password}</p> : null}
         </label>
