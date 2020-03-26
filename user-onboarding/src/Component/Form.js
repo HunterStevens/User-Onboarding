@@ -6,7 +6,7 @@ const schema = yup.object().shape({
     firstName:yup.string().required('First Name is required.'),
     lastName:yup.string().required("Last Name is required."),
     email:yup.string().email("Enter a valid email address.").required("Can't leave Email field blank"),
-    password:yup.string().required("a password is required.").min(4).matches(/(^(?=.*[!@#$%^&*]))/, "Your Password is required to have special characters with it (at least one)"),
+    password:yup.string().required("a password is required.").min(4, "your password can't be less than 4 letters").matches(/(^(?=.*[!@#$%^&*]))/, "Your Password is required to have special characters with it (at least one)"),
     vacation:yup.string().required("Choose your dream vactaion"),
     terms: yup.boolean().oneOf([true], "Agree to the terms and conditions that have yet to be displayed... Still working on it.")
 });
